@@ -1,7 +1,5 @@
 <?php 
 
-$numbers = [10, -12, 34, 34, 12, -3, 123];
-
 function findMinVal($numbers): int {
     $min = $numbers[0];
     $number = 0;
@@ -20,5 +18,7 @@ function findMinVal($numbers): int {
 
     return $min;
 }
+
+$numbers = [10, -12, 34, 34, 12, -3, 123];
 
 echo findMinVal($numbers);
