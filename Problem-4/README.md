@@ -2,6 +2,7 @@
 
 Sample input: 5 <br>
 Sample output: <br>
+
 ![pyramid](pyramid.png)
 
 ## How to solve
