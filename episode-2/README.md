@@ -19,7 +19,7 @@ Let's say, we need to create some fake data using thrid party library called Fak
     ```
 3. Use command in terminal `composer install` or `composer update`
 4. It will install composer and the required library.
-5. Then you can use the following code in index.php file.
+5. Use the following code in index.php file.
     ```sh
     require 'vendor/autoload.php';
 
