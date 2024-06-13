@@ -1,3 +1,3 @@
-# Module-1
+# Module-2
 
-This branch will have everything regarding module-1 of Laravel Career Path Batch-2 by Interactice Cares.
+This branch will have everything regarding module-2 of Laravel Career Path Batch-2 by Interactice Cares.
