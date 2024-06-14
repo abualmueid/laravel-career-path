@@ -1,3 +1,3 @@
-# Laravel Career Path 
+# Quizzes
 
-This repo will have all projects, assignments and practice files of Laravel Career Path Batch-02 by Interactive Cares, where my mentors are industry experts - honorable Ahmed Shamim Hasan Shaon Vai, Al Nahian Vai and Faysal Ahmed Vai.
+This branch will have all the quiz questions and solutions of Laravel Career Path Batch-2 by Interactive Cares.
