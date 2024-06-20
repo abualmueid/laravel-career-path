@@ -1,4 +1,4 @@
-# Advanced Dependency Management
+# Episode-7: Advanced Dependency Management
 
 ## Some useful commands
 

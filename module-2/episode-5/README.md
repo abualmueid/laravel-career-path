@@ -1,4 +1,4 @@
-# Managing Dependencies with Composer
+# Episode-5: Managing Dependencies with Composer
 
 ## Some Composer Commands
 
