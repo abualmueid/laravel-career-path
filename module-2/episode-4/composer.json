@@ -1,0 +1,9 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\Classes\\": "app/classes"
+        },
+
+        "files": ["helpers/File.php"]
+    }
+}
