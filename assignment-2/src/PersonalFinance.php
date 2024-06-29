@@ -28,22 +28,27 @@ class PersonalFinance {
     }
 
     public function run(): void {
-        // echo "hello";
+        echo "--------------------------------------\n";
+        echo "--------------------------------------\n";
+        echo "Welcome to 'Personal Finance Manager'!\n";
+        echo "--------------------------------------\n";
+
         while (true) {
+            echo "--------------------------------------\n";
             foreach ($this->options as $option => $label) {
                 printf("%d. %s\n", $option, $label);
             }
+            echo "--------------------------------------\n";
 
             $choice = intval(readline("Enter your option: "));
-
             switch ($choice) {
                 case self::ADD_INCOME:
-                    $amount = floatval(trim(readline("Enter income amount: ")));
+                    $amount = floatval(trim(readline("\nEnter income amount: ")));
                     $category = trim(readline("Enter income category: "));
                     $this->financeManager->addIncome($amount, $category);
                     break;
                 case self::ADD_EXPENSE:
-                    $amount = floatval(trim(readline("Enter expense amount: ")));
+                    $amount = floatval(trim(readline("\nEnter expense amount: ")));
                     $category = trim(readline("Enter expense category: "));
                     $this->financeManager->addExpense($amount, $category);
                     break;
@@ -63,7 +68,6 @@ class PersonalFinance {
                     return;
                 default:
                     echo "Invalid option.\n";
-
             }
         }
     }
