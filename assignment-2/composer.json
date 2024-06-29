@@ -1,0 +1,15 @@
+{
+    "name": "abualmueid/personalfinance",
+    "description": "It will manage one's personal finance",
+    "autoload": {
+        "psr-4": {
+            "CLIApp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "abualmueid",
+            "email": "61595430+abualmueid@users.noreply.github.com"
+        }
+    ]
+}
