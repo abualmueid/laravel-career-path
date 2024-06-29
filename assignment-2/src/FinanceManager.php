@@ -3,12 +3,29 @@
 namespace CLIApp;
 
 class FinanceManager {
-    public function addIncome($amount, $category) {
-        echo "categories";
+    private array $incomes = [];
+    private array $expenses = [];
+    private string $dataFile = "FinanceData.json";
+
+    public function addIncome(float $amount, string $category): void {
+        $this->incomes[] = [
+            "amount" => $amount, 
+            "category" => $category
+        ];
+        $this->saveData();
+        echo "Income added successfully!\n";
     }
 
-    public function addExpense($amount, $category) {
-        echo "categories";
+    private function saveData(): void {
+        $data = [
+            "incomes" => $this->incomes,
+            "expenses" => $this->expenses
+        ];
+        file_put_contents($this->dataFile, json_encode($data));
+    }
+
+    public function addExpense(float $amount, string $category) {
+        // echo "Expense added successfully!\n";
     }
 
     public function viewIncome() {
