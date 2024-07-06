@@ -31,7 +31,7 @@
 
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
         <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
-            Welcome To PHP Form Handling Class hello!</h1>
+            Welcome To PHP Form Handling Class!</h1>
         <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 ">In PHP, form handling is a
             crucial aspect of web development. It allows you to collect data from users through HTML forms and process
             that data on the server side. Let's explore the steps involved in handling forms in PHP.</p>
