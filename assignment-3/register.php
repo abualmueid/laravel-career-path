@@ -1,3 +1,26 @@
+<?php 
+
+define('FILE_NAME', __DIR__ . '/data/users.json');
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $userInfo = [
+            'name' => $name,
+            'email' => $email,
+            'password' => $password
+        ];
+
+        file_put_contents(FILE_NAME, json_encode($userInfo)); // This function is identical to fopen(), fwrite(), fclose()
+
+    }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +47,7 @@
             </button>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="./login.html" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
+            <a href="login.php" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
         </div>
     </nav>
     <!-- Mobile menu, show/hide based on menu open state. -->

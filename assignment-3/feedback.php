@@ -1,3 +1,24 @@
+<?php 
+
+define('FILE_NAME', __DIR__ . '/data/feedback.json');
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $feedback = $_POST['feedback'];
+
+        // $feedbackInfo = [
+        //     'name' => $name,
+        //     'email' => $email,
+        //     'password' => $password
+        // ];
+
+        file_put_contents(FILE_NAME, json_encode($feedback)); // This function is identical to fopen(), fwrite(), fclose()
+        header('Location: feedback-success.php');
+    }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +71,7 @@
                     </div>
 
                     <div class="mt-10 mx-auto w-full max-w-xl">
-                        <form class="space-y-6" action="#" method="POST">
+                        <form class="space-y-6" action="feedback-success.php" method="POST">
                             <div>
                                 <label for="feedback" class="block text-sm font-medium leading-6 text-gray-900">Don't hesitate, just do it!</label>
                                 <div class="mt-2">

@@ -24,7 +24,7 @@
             </button>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="./login.html" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
+            <a href="login.php" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
         </div>
     </nav>
     <!-- Mobile menu, show/hide based on menu open state. -->
@@ -72,7 +72,7 @@
                     <div class="pt-8 text-base font-semibold leading-7">
                         <p class="text-gray-900">Sounds interesting?</p>
                         <p>
-                            <a href="./login.html" class="text-sky-500 hover:text-sky-600">Let's start!</a>
+                            <a href="login.php" class="text-sky-500 hover:text-sky-600">Let's start!</a>
                         </p>
                     </div>
                 </div>
