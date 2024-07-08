@@ -13,8 +13,8 @@ define('FILE_NAME', __DIR__ . '/data/users.json');
             'password' => $password
         ];
 
-        file_put_contents(FILE_NAME, json_encode($userInfo)); // This function is identical to fopen(), fwrite(), fclose()
-
+        file_put_contents(FILE_NAME, json_encode($userInfo, JSON_PRETTY_PRINT)); // This function is identical to fopen(), fwrite(), fclose()
+        header('Location: login.php');
     }
 
 
@@ -130,7 +130,7 @@ define('FILE_NAME', __DIR__ . '/data/users.json');
 
                         <p class="mt-10 text-center text-sm text-gray-500">
                             Already have an account?
-                            <a href="./login.html" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Login!</a>
+                            <a href="login.php" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Login!</a>
                         </p>
                     </div>
                 </div>
