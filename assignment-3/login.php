@@ -6,18 +6,55 @@ require 'helpers.php';
 
 define('FILE_NAME', __DIR__ . '/data/users.json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+$errors = [];
+$name = '';
+$email = '';
+$password = '';
 
-    $userInfo = json_decode(file_get_contents(FILE_NAME), true);
-    if ($userInfo['email'] === $email && $userInfo['password']) {
-        echo "Login Successful!";
-        header('Location: dashboard.php');
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Handle errors that might occur
+
+    // Sanitize and validate email field
+    if (empty($_POST['email'])) {
+        $errors['email'] = "Please provide an email address!";
+    } 
+    else {
+        $email = sanitize($_POST['email']);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = "Please provide a valid email address!";
+        }
+    }
+
+    // Sanitize and validate password field
+    if (empty($_POST['password'])) {
+        $errors['password'] = "Please provide a password!";
+    } elseif (strlen($_POST['password']) < 8) {
+        $errors['password'] = "Password length must be at least 8 characters!";
+    } else {
+        $password = sanitize($_POST['password']);
+    }
+
+    // Verify email and password
+    if (empty($errors)) {
+        $users = json_decode(file_get_contents(FILE_NAME), true);
+        dd($users);
+        foreach ($users as $user) {
+            if ($user['email'] === $email && password_verify($password, $user['password'])) {
+                // $_SESSION['user_id'] = $user['email'];
+                // Redirect to the Login page
+                header('Location: dashboard.php'); 
+                exit;
+            }
+        }
+    } else {
+        $errors['auth_error'] = "An error occured. Please try again!";
     }
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,12 +125,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="mt-10 mx-auto w-full max-w-xl">
-                        <form class="space-y-6" action="#" method="POST">
+                        <form class="space-y-6" action="#" method="POST" novalidate>
                             <div>
                                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                                 <div class="mt-2">
                                     <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
+                                <?php if (isset($errors['email'])) : ?>
+                                    <p class="text-xs text-red-600 mt-2" id="name-error"><?= $errors['email']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>
@@ -106,6 +146,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="mt-2">
                                     <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
+                                <?php if (isset($errors['password'])) : ?>
+                                    <p class="text-xs text-red-600 mt-2" id="name-error"><?= $errors['password']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>

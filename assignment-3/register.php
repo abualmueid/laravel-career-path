@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Sanitize and validate email field
     if (empty($_POST['email'])) {
-        $errors['email'] = "Please provide a email address!";
+        $errors['email'] = "Please provide an email address!";
     } 
     else {
         $email = sanitize($_POST['email']);
