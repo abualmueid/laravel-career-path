@@ -77,18 +77,19 @@ $userFeedbacks = json_decode(file_get_contents(FILE_NAME), true);
             </div>
             <h1 class="text-xl text-indigo-800 text-bold my-10">Received feedback</h1>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <?php 
+                // for ($i = 0; $i < count($userFeedbacks); $i++) {
+                foreach ($userFeedbacks as $userFeedback) {
+                ?>
                 <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
-                    <?php 
-                    // for ($i = 0; $i < count($userFeedbacks); $i++) {
-                    foreach ($userFeedbacks as $userFeedback) {
-                    ?>
                     <div class="focus:outline-none">
                         <p class="text-gray-500"><?= $userFeedback; ?></p>
                     </div>
-                    <?php
-                    }
-                    ?>
                 </div>
+                <?php
+                }
+                ?>
+            </div>
 
                 <!-- <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
                     <div class="focus:outline-none">

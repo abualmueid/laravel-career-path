@@ -2,23 +2,22 @@
 
 define('FILE_NAME', __DIR__ . '/data/feedback.json');
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (file_exists(FILE_NAME)) {
+        $feedbacks = file_get_contents(FILE_NAME);
+        $feedbacks = json_decode(file_get_contents(FILE_NAME), true);
+    } else {
         $feedbacks = [];
-        $feedbacks[] = $_POST['feedback'];
-
-        // $feedbackInfo = [
-        //     'name' => $name,
-        //     'email' => $email,
-        //     'password' => $password
-        // ];
-
-        file_put_contents(FILE_NAME, json_encode($feedbacks)); // This function is identical to fopen(), fwrite(), fclose()
-        header('Location: feedback-success.php');
-        exit();
     }
-
-
-
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['feedback']) && !empty($_POST['feedback'])) {
+            $feedbacks[] = $_POST['feedback'];
+            file_put_contents(FILE_NAME, json_encode($feedbacks, JSON_PRETTY_PRINT)); // This function is identical to fopen(), fwrite(), fclose()
+            header('Location: feedback-success.php');
+            exit();
+        }
+    }
+    
 ?>
 
 <!DOCTYPE html>
