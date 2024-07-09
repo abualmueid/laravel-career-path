@@ -4,7 +4,7 @@ define('FILE_NAME', __DIR__ . '/data/feedback.json');
 
     if (file_exists(FILE_NAME)) {
         $feedbacks = file_get_contents(FILE_NAME);
-        $feedbacks = json_decode(file_get_contents(FILE_NAME), true);
+        $feedbacks = json_decode($feedbacks, true);
     } else {
         $feedbacks = [];
     }

@@ -1,5 +1,9 @@
 <?php 
 
+session_start();
+
+require 'helpers.php';
+
 define('FILE_NAME', __DIR__ . '/data/users.json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

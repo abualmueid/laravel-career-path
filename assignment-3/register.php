@@ -1,24 +1,85 @@
 <?php 
 
+// Create file
+// Check if the form is submitted
+// Handle errors that might occur
+// Sanitize and validate input data
+// Check password match
+// Hash the password
+// Store data to file
+// Redirect to the Login page
+
+require 'helpers.php';
+
 define('FILE_NAME', __DIR__ . '/data/users.json');
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+// Create file
+if (file_exists(FILE_NAME)) {
+    $userInfo = file_get_contents(FILE_NAME);
+    $users = json_decode($userInfo, true);
+} else {
+    $users = [];
+}
 
-        $userInfo = [
-            'name' => $name,
-            'email' => $email,
-            'password' => $password
-        ];
+$errors = [];
+$name = '';
+$email = '';
+$password = '';
 
-        file_put_contents(FILE_NAME, json_encode($userInfo, JSON_PRETTY_PRINT)); // This function is identical to fopen(), fwrite(), fclose()
-        header('Location: login.php');
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Handle errors that might occur
+
+    // Sanitize and validate name field
+    if (empty($_POST['name'])) {
+        $errors['name'] = "Please provide a name!";
+    } else {
+        $name = sanitize($_POST['name']);
     }
 
+    // Sanitize and validate email field
+    if (empty($_POST['email'])) {
+        $errors['email'] = "Please provide a email address!";
+    } 
+    else {
+        $email = sanitize($_POST['email']);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = "Please provide a valid email address!";
+        }
+    }
 
+    // Sanitize and validate password field
+    if (empty($_POST['password'])) {
+        $errors['password'] = "Please provide a password!";
+    } if (empty($_POST['confirm_password'])) {
+        $errors['confirm_password'] = "Please confirm your password!";
+    } elseif (strlen($_POST['password']) < 8) {
+        $errors['password'] = "Password length must be at least 8 characters!";
+    } elseif($_POST['password'] !== $_POST['confirm_password']) { 
+        $errors['password'] = "Password doesn't match!";
+    }
+    else {
+        $password = sanitize($_POST['password']);
+        $password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
+    }
 
+    $user = [
+        'name' => $name,
+        'email' => $email,
+        'password' => $password
+    ];
+    $users[] = $user;
+
+    if (empty($errors)) {
+        // Store data to file
+        file_put_contents(FILE_NAME, json_encode($users, JSON_PRETTY_PRINT)); // This function is identical to fopen(), fwrite(), fclose()
+        // Redirect to the Login page
+        header('Location: login.php'); 
+        exit;
+    } else {
+        $errors['auth_error'] = "An error occured. Please try again!";
+    }
+} 
 ?>
 
 <!DOCTYPE html>
@@ -90,12 +151,15 @@ define('FILE_NAME', __DIR__ . '/data/users.json');
                     </div>
 
                     <div class="mt-10 mx-auto w-full max-w-xl">
-                        <form class="space-y-6" action="#" method="POST">
+                        <form class="space-y-6" action="#" method="POST" novalidate>
                             <div>
                                 <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
                                 <div class="mt-2">
                                     <input id="name" name="name" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
+                                <?php if (isset($errors['name'])) : ?>
+                                    <p class="text-xs text-red-600 mt-2" id="name-error"><?= $errors['name']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>
@@ -103,6 +167,9 @@ define('FILE_NAME', __DIR__ . '/data/users.json');
                                 <div class="mt-2">
                                     <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
+                                <?php if (isset($errors['email'])) : ?>
+                                    <p class="text-xs text-red-600 mt-2" id="name-error"><?= $errors['email']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>
@@ -112,6 +179,9 @@ define('FILE_NAME', __DIR__ . '/data/users.json');
                                 <div class="mt-2">
                                     <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
+                                <?php if (isset($errors['password'])) : ?>
+                                    <p class="text-xs text-red-600 mt-2" id="name-error"><?= $errors['password']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>
@@ -121,6 +191,9 @@ define('FILE_NAME', __DIR__ . '/data/users.json');
                                 <div class="mt-2">
                                     <input id="confirm_password" name="confirm_password" type="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 </div>
+                                <?php if (isset($errors['confirm_password'])) : ?>
+                                    <p class="text-xs text-red-600 mt-2" id="name-error"><?= $errors['confirm_password']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div>
