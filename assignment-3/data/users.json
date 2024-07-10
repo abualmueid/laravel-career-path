@@ -28,5 +28,11 @@
         "name": "Kyla Roberson",
         "email": "cehydanemo@mailinator.com",
         "password": "$2y$10$z.ELNSnBtAJp5jOBQe675.sxriV5LrPfXVxn0bVj0zHWWMculkExe"
+    },
+    {
+        "id": 6,
+        "name": "John Doe",
+        "email": "john@gmail.com",
+        "password": "$2y$10$DPsONHd9QcH3uQcjo69hce4z5qoUKtJXmHdHKxxfom25p3VWop32e"
     }
 ]

@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($users as $user) {
             if ($user['email'] === $email && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
-                flash('success', 'Login Successful!');
                 // Redirect to the Login page
                 header('Location: dashboard.php'); 
                 exit;
@@ -122,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php if ($message = flash('success')): ?>
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                     <!-- <strong class="font-bold">Success!</strong> -->
-                    <span class="block sm:inline"><?= $message ?></span>
+                    <span class="block sm:inline"><i><?= $message ?></i></span>
                 </div>
                 <?php endif; ?>
                     <div class="mx-auto w-full max-w-xl text-center px-24">

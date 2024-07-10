@@ -9,6 +9,8 @@
 // Store data to file
 // Redirect to the Login page
 
+session_start();
+
 require 'helpers.php';
 
 define('FILE_NAME', __DIR__ . '/data/users.json');
@@ -45,7 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = sanitize($_POST['email']);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = "Please provide a valid email address!";
-        }
+        } else {
+            // Check for duplicate user
+            foreach ($users as $user) {
+                if ($user['email'] === $email) {
+                    $errors['email'] = "This email is already registered!";
+                    break;
+                }
+            }
+        } 
     }
 
     // Sanitize and validate password field
@@ -56,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (strlen($_POST['password']) < 8) {
         $errors['password'] = "Password length must be at least 8 characters!";
     } elseif($_POST['password'] !== $_POST['confirm_password']) { 
-        $errors['password'] = "Password doesn't match!";
+        $errors['confirm_password'] = "Password doesn't match!";
     }
     else {
         $password = sanitize($_POST['password']);
@@ -78,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         // Store data to file
         file_put_contents(FILE_NAME, json_encode($users, JSON_PRETTY_PRINT)); // This function is identical to fopen(), fwrite(), fclose()
+        flash('success', 'Registration Successful! Please log in to continue.');
         // Redirect to the Login page
         header('Location: login.php'); 
         exit;
