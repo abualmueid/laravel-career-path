@@ -38,8 +38,9 @@ $feedbacks = json_decode(file_get_contents(FILE_NAME), true);
                 </svg>
             </button>
         </div>
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-4">
             <span class="text-sm font-semibold leading-6 text-gray-900">John Doe</span>
+            <a href="logout.php" class="text-sm font-semibold leading-6 text-gray-900">Log out</a>
         </div>
     </nav>
     <!-- Mobile menu, show/hide based on menu open state. -->
