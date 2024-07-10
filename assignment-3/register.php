@@ -63,7 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
     }
 
+    // Generate unique id for each user
+    $lastUser = end($users); // Get the last user from users array
+    $id = isset($lastUser['id']) ? $lastUser['id'] + 1 : 1; // Auto increment id
+
     $user = [
+        'id' => $id,
         'name' => $name,
         'email' => $email,
         'password' => $password

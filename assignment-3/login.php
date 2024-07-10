@@ -38,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verify email and password
     if (empty($errors)) {
         $users = json_decode(file_get_contents(FILE_NAME), true);
-        dd($users);
+        // dd($users);
+        print_r($users);
         foreach ($users as $user) {
             if ($user['email'] === $email && password_verify($password, $user['password'])) {
-                // $_SESSION['user_id'] = $user['email'];
+                $_SESSION['user_id'] = $user['id'];
                 // Redirect to the Login page
                 header('Location: dashboard.php'); 
                 exit;
