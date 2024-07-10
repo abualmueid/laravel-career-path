@@ -30,7 +30,8 @@ This project is a simple, minimal 'Anonymous Feedback Application'. The applicat
 
    ```bash
    git clone https://github.com/abualmueid/laravel-career-path.git
-   cd assignment-3
+   cd laravel-career-path
+   git checkout assignment-3
 
 2. Start the PHP built-in server: 
 
